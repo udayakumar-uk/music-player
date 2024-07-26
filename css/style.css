@@ -1,0 +1,82 @@
+body {
+  font-family: "Josefin Sans", sans-serif;
+}
+
+:root {
+  --primary: #404ebf;
+}
+
+.popbold {
+  font-weight: 700;
+}
+.popsemibold {
+  font-weight: 500;
+}
+.popreg {
+  font-weight: 400;
+}
+.popthin {
+  font-weight: 300;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.material-symbols-rounded {
+  vertical-align: middle;
+  line-height: normal;
+  font-size: 28px;
+  color: #fff;
+  width: 30px;
+  filter: invert(1);
+}
+
+.btn,
+.btn:focus,
+.btn.active,
+.btn:active {
+  box-shadow: none !important ;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+.gap-05 {
+  gap: 0.5rem;
+}
+.uiscroll::-webkit-scrollbar {
+  width: 10px;
+}
+.uiscroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.uiscroll::-webkit-scrollbar-thumb {
+  background: #b3b3b3;
+  border-radius: 10px;
+}
+.uiscroll::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+.lineclamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lineclamp1 {
+  -webkit-line-clamp: 1;
+}
+.lineclamp2 {
+  -webkit-line-clamp: 2;
+}
+.lineclamp3 {
+  -webkit-line-clamp: 3;
+}

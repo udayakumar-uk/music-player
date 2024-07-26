@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media player</title>
+    <link rel="shortcut icon" href="./img/headphone.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/videoplayer.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+
+
+
+    <div class="video-box">
+        <div class="mediaPlayer showControls" id="player">
+            <div class="captions">
+                <button class="btn player_button active" id="control"><img src="./img/controls.svg" class="material-symbols-rounded" alt="control"></button>
+                <span id="videoCaption" class="w-50 d-inline-block text-truncate align-middle"></span>
+            </div>
+
+            <video class="player_video myVideo" id="myVideoPlayer" src="">Your browser does not support the video.</video>
+
+            <div class="myEqualizer col-12 col-md-10 col-lg-8 col-xl-6" style="display: none;">
+                <div class="form-group  d-flex align-items-center">
+                    <label for="presets" class="m-0">Presets : </label>
+                    <select id="combox-equalizer" class="form-control ml-3" style="width: 50%;height: 30px;background: var(--primary);border: 0;color: var(--white);">
+                        <option value="Manual" selected="selected">Manual</option>
+                        <option value="Theatre">Theatre</option>
+                        <option value="Dolby" >Dolby</option>
+                        <option value="Rock">Rock</option>
+                        <option value="Live">Live</option>
+                        <option value="Treble">Treble</option>
+                        <option value="Bass">Bass</option>
+                        <option value="Classic">Classic</option>
+                    </select>
+                </div>
+                <form autocomplete="off" id="equalizer"></form>
+            </div>
+
+            <div class="player_controls py-2 px-3">
+                
+                <div class="progress progress-range" title="Jump-to">
+                    <div class="progress-bar"></div>
+                </div>
+                
+                <div class="action_controls align-items-center d-flex justify-content-between pt-3">
+                    <div class="left-controls">
+                        <button class="btn player_button" id="speaker"><img src="./img/volume_up.svg" class="material-symbols-rounded"></button>
+                        <input type="range" name="volume" id="volume_slider" min="0" max="1" step="0.05" value="0.5"></input>
+                        <button class="btn player_button ml-1 ml-md-3" id="toggleEq"><img src="./img/tune.svg" class="material-symbols-rounded"></button>
+                    </div>
+                    <div class="center-controls">
+                        <button data-skip="-10" class="skip-btn player_button btn"><img src="./img/replay.svg" class="material-symbols-rounded"></button>
+                        <button class="btn player_button toggle mx-3" id="play-btn" title='Toggle Play'><img src="./img/play.svg" class="material-symbols-rounded"></button>
+                        <button data-skip="10" class="skip-btn player_button btn"><img src="./img/forward.svg" class="material-symbols-rounded"> </button>
+                    </div>
+                    <div class="right-controls d-flex align-items-center justify-content-between">
+
+                        <div class="player_equalizer">
+                            <button type="file" id="fileUpload" class="btn player_button">
+                                <img src="./img/drive_folder.svg" class="material-symbols-rounded">
+                                <input type="file" id="myFileInput" accept=".mp3, .mp4, .mkv, .ogg">
+                            </button>
+                        </div>
+                        <div class="time">
+                            <span class="time-elapsed">00:00</span> / 
+                            <span class="time-duration">00:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/video.js"></script>
+
+    <script src="./js/require.js"></script>
+    <script src="./js/script.js"></script>
+
+</body>
+</html>
+
+
+
