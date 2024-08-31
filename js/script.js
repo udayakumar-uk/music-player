@@ -1,3 +1,4 @@
+
 define("frequency-draw", ["require", "exports"], function (require, exports) {
   "use strict";
   Object.defineProperty(exports, "__esModule", { value: true });
@@ -13,39 +14,38 @@ define("equalizer", ["require", "exports"], function (require, exports) {
       this.filters = new Array(this.count);
     }
     EqualizerFilter.prototype.init = function (ac) {
-      var filter,
-        i = 0;
-      for (; i < this.count; i++) {
+      var filter;
+      for (var i=0; i < this.count; i++) {
         filter = ac.createBiquadFilter();
         filter.type = "peaking";
         filter.frequency.value = this.frequencys[i];
         this.filters[i] = filter;
         if (this.filters[i - 1]) {
-          this.filters[i - 1].connect(this.filters[i]);
+            this.filters[i - 1].connect(this.filters[i]);
         }
       }
     };
-    Object.defineProperty(EqualizerFilter.prototype, "first", {
-      get: function () {
+      Object.defineProperty(EqualizerFilter.prototype, "first", {
+          get: function () {
         return this.filters[(0, 0)];
-      },
-      enumerable: true,
-      configurable: true
-    });
-    Object.defineProperty(EqualizerFilter.prototype, "last", {
-      get: function () {
-        return this.filters[this.count - 1];
-      },
-      enumerable: true,
-      configurable: true
-    });
-    return EqualizerFilter;
+          },
+          enumerable: true,
+          configurable: true
+      });
+      Object.defineProperty(EqualizerFilter.prototype, "last", {
+          get: function () {
+              return this.filters[this.count - 1];
+          },
+          enumerable: true,
+          configurable: true
+      });
+      return EqualizerFilter;
   })();
   exports.EqualizerFilter = EqualizerFilter;
-
+  
   var Equalizer = /** @class */ (function () {
-    function Equalizer() {
-      this.presets = {
+      function Equalizer() {
+          this.presets = {
         Manual: {
           name: "Manual",
           values: [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -78,7 +78,7 @@ define("equalizer", ["require", "exports"], function (require, exports) {
           name: "Dolby",
           values: [15, 15, 2, 14, -5, -12, -10, -11, -13, -10, -5, -10, -6]
         }
-      };
+          };
       // 100 200 400 600 1K 3K 6K 12K 14K 16K
       this.frequencys = [
         10,
@@ -95,35 +95,35 @@ define("equalizer", ["require", "exports"], function (require, exports) {
         8000,
         16000
       ];
-      this.eqFilter = new EqualizerFilter(this.frequencys);
-    }
-    Equalizer.prototype.init = function (ac) {
-      this.eqFilter.init(ac);
-    };
-    Equalizer.prototype.use = function (name) {
-      var seq = this.presets[name] || this.presets[0];
-      for (var i = 0; i < this.eqFilter.filters.length; i++) {
-        this.eqFilter.filters[i].gain.value = seq.values[i];
+          this.eqFilter = new EqualizerFilter(this.frequencys);            
       }
-    };
-    Equalizer.prototype.reset = function () {
-      for (var i = 0; i < this.eqFilter.filters.length; i++) {
-        this.eqFilter.filters[i].gain.value = 0;
-      }
-    };
-    Equalizer.prototype.set = function (index, value) {
-      this.eqFilter.filters[index].gain.value = value;
-    };
-    Equalizer.prototype.get = function (index) {
-      return this.eqFilter.filters[index].gain.value;
-    };
-    Equalizer.prototype.connect = function (before, aftter) {
-      if (this.eqFilter) {
-        before.connect(this.eqFilter.first);
-        this.eqFilter.last.connect(aftter);
-      }
-    };
-    return Equalizer;
+      Equalizer.prototype.init = function (ac) {
+          this.eqFilter.init(ac);
+      };
+      Equalizer.prototype.use = function (name) {
+          var seq = this.presets[name] || this.presets[0];
+          for (var i = 0; i < this.eqFilter.filters.length; i++) {
+              this.eqFilter.filters[i].gain.value = seq.values[i];
+          }
+      };
+      Equalizer.prototype.reset = function () {
+          for (var i = 0; i < this.eqFilter.filters.length; i++) {
+              this.eqFilter.filters[i].gain.value = 0;
+          }
+      };
+      Equalizer.prototype.set = function (index, value) {
+          this.eqFilter.filters[index].gain.value = value;
+      };
+      Equalizer.prototype.get = function (index) {
+          return this.eqFilter.filters[index].gain.value;
+      };
+      Equalizer.prototype.connect = function (before, aftter) {
+          if (this.eqFilter) {
+              before.connect(this.eqFilter.first);
+              this.eqFilter.last.connect(aftter);
+          }
+      };
+      return Equalizer;
   })();
   exports.Equalizer = Equalizer;
 });
@@ -131,173 +131,154 @@ define("equalizer-ui", ["require", "exports"], function (require, exports) {
   "use strict";
   Object.defineProperty(exports, "__esModule", { value: true });
   var EqualizerUIItem = /** @class */ (function () {
-    function EqualizerUIItem() {
-      this.div = document.createElement("div");
-      this.freq = document.createElement("span");
-      this.input = document.createElement("input");
-      this.label = document.createElement("span");
-      this.div.className = "slide-wrapper";
-      this.input.type = "range";
-      this.input.min = "-20.0";
-      this.input.max = "20.0";
-      this.input.value = "0";
-      this.freq.className = "scope";
-      this.freq.textContent = "";
-      this.label.className = "scope";
-      this.label.textContent = this.input.value + " dB";
-      this.div.appendChild(this.freq);
-      this.div.appendChild(this.input);
-      this.div.appendChild(this.label);
-    }
-    return EqualizerUIItem;
+      function EqualizerUIItem() {
+          this.div = document.createElement("div");
+          this.freq = document.createElement("span");
+          this.input = document.createElement("input");
+          this.label = document.createElement("span");
+          this.div.className = "slide-wrapper";
+          this.input.type = "range";
+          this.input.min = "-20.0";
+          this.input.max = "20.0";
+          this.input.value = "0";
+          this.freq.className = "scope";
+          this.freq.textContent = "";
+          this.label.className = "scope";
+          this.label.textContent = this.input.value + " dB";
+          this.div.appendChild(this.freq);
+          this.div.appendChild(this.input);
+          this.div.appendChild(this.label);
+      }
+      return EqualizerUIItem;
   })();
   exports.EqualizerUIItem = EqualizerUIItem;
   var EqualizerUI = /** @class */ (function () {
-    function EqualizerUI(count) {
-      this.el = document.createElement("div");
-      this.el.className = "equalizer";
-      this.comboxEqualizer = document.createElement("select");
-      this.items = [];
-      this.updateItems(count);
-    }
-    EqualizerUI.prototype.updateItems = function (count) {
-      for (var i = 0; i < count; i++) {
-        var item = this.createItem(i);
-        this.el.appendChild(item.div);
-        this.items[i] = item;
+      function EqualizerUI(count) {
+          this.el = document.createElement("div");
+          this.el.className = "equalizer";
+          this.comboxEqualizer = document.createElement("select");
+          this.items = [];
+          this.updateItems(count);
       }
-    };
-    EqualizerUI.prototype.createItem = function (index) {
-      var _this = this;
-      var item = new EqualizerUIItem();
-      item.input.addEventListener(
-        "input",
-        function () {
-          if (_this.update) {
-            _this.update(item, index);
+      EqualizerUI.prototype.updateItems = function (count) {
+          for (var i = 0; i < count; i++) {
+              var item = this.createItem(i);
+              this.el.appendChild(item.div);
+              this.items[i] = item;
           }
-        },
-        false
-      );
-      return item;
-    };
-    return EqualizerUI;
+      };
+      EqualizerUI.prototype.createItem = function (index) {
+          var _this = this;
+          var item = new EqualizerUIItem();
+          item.input.addEventListener("input", function () {
+              if (_this.update) {
+                  _this.update(item, index);
+              }
+          }, false);
+          return item;
+      };
+      return EqualizerUI;
   })();
   exports.EqualizerUI = EqualizerUI;
 });
-define("audio-player", [
-  "require",
-  "exports",
-  "equalizer",
-  "equalizer-ui"
-], function (require, exports, equalizer_1, equalizer_ui_1) {
+define("audio-player", ["require", "exports", "equalizer", "equalizer-ui"], function (require, exports, equalizer_1, equalizer_ui_1) {
   "use strict";
   Object.defineProperty(exports, "__esModule", { value: true });
   var AudioPlayer = /** @class */ (function () {
-    function AudioPlayer() {
-      this.eq = new equalizer_1.Equalizer();
-      this.ui = new equalizer_ui_1.EqualizerUI(this.eq.frequencys.length);
-      this.audioCtx = new AudioContext();
-      this.analyser = this.audioCtx.createAnalyser();
-      this.eq.init(this.audioCtx);
-      for (var i = 0, item = void 0; i < this.ui.items.length; i++) {
-        item = this.ui.items[i];
-        if (this.eq.frequencys[i] > 1000) {
-          item.freq.textContent =
-            Math.floor(this.eq.frequencys[i] / 5000) + "K";
-        } else {
-          item.freq.textContent = this.eq.frequencys[i] + "";
-        }
+      function AudioPlayer() {
+          this.eq = new equalizer_1.Equalizer();
+          this.ui = new equalizer_ui_1.EqualizerUI(this.eq.frequencys.length);
+          this.audioCtx = new AudioContext();
+          this.analyser = this.audioCtx.createAnalyser();
+          this.eq.init(this.audioCtx);
+          for (var i = 0, item = void 0; i < this.ui.items.length; i++) {
+              item = this.ui.items[i];
+              if (this.eq.frequencys[i] > 1000) {
+                  item.freq.textContent = Math.floor(this.eq.frequencys[i] / 5000) + "K";
+              } else {
+                  item.freq.textContent = this.eq.frequencys[i] + "";
+              }
+          }
       }
-    }
-
-    AudioPlayer.prototype.connect = function (media) {
-      this.mediaSource = this.audioCtx.createMediaElementSource(media);
-      if (this.eq) {
-        this.eq.connect(this.mediaSource, this.analyser);
+      
+      AudioPlayer.prototype.connect = function (media) {
+          this.mediaSource = this.audioCtx.createMediaElementSource(media);
+          if (this.eq) {
+              this.eq.connect(this.mediaSource, this.analyser);
       } else {
-        this.mediaSource.connect(this.analyser);
-      }
-      this.analyser.connect(this.audioCtx.destination);
-    };
-
-    return AudioPlayer;
+              this.mediaSource.connect(this.analyser);
+          }
+          this.analyser.connect(this.audioCtx.destination);
+      };
+      
+      return AudioPlayer;
   })();
   exports.AudioPlayer = AudioPlayer;
 });
 
-define("main", [
-  "require",
-  "exports",
-  "frequency-draw",
-  "audio-player"
-], function (require, exports, frequency_draw_1, audio_player_1) {
+define("main", ["require", "exports", "frequency-draw", "audio-player"], function (require, exports, frequency_draw_1, audio_player_1) {
   "use strict";
   Object.defineProperty(exports, "__esModule", { value: true });
   function $id(id) {
-    return document.getElementById(id);
+      return document.getElementById(id);
   }
   function $$(selector) {
-    return document.querySelector(selector);
+      return document.querySelector(selector);
   }
   function run() {
-    var equalizer = $id("equalizer");
-    // var myAudio = $id("myAudioPlayer");
-    var myVideo = $id("myVideoPlayer");
+      var equalizer = $id("equalizer");
+      // var myAudio = $id("myAudioPlayer");
+      var myVideo = $id("myVideoPlayer");
 
-    var comboxEqualizer = $id("combox-equalizer");
-    var audioPlayer = new audio_player_1.AudioPlayer();
-    var audioPlayerInited = false;
+      var comboxEqualizer = $id("combox-equalizer");
+      var audioPlayer = new audio_player_1.AudioPlayer();
+      var audioPlayerInited = false;
     
-    audioPlayer.ui.update = function (item, index) {
-      var val = +item.input.value;
-      if (audioPlayer.eq) {
-        audioPlayer.eq.set(index, val);
-      }
-      updateEq();
-      comboxEqualizer.value = "Theatre";
-      item.label.textContent = val + " dB";
-    };
-    equalizer.appendChild(audioPlayer.ui.el);
-    function initAudioPlayer() {
-      if (audioPlayerInited) return;
-      updateEq();
-      // audioPlayer.connect(myAudio);
-      audioPlayer.connect(myVideo);
-      audioPlayerInited = true;
-    }
-
-    function updateEq() {
-      for (var i = 0; i < audioPlayer.ui.items.length; i++) {
-        var item = audioPlayer.ui.items[i];
-        if (audioPlayer.eq) {
-          item.input.value = audioPlayer.eq.get(i) + "";
-          item.label.textContent = item.input.value + " dB";
-        }
-      }
-    }
-    function update() {
-      requestAnimationFrame(update);
-    }
-    function init() {
-      myVideo.volume = 0.5;
-      myVideo.addEventListener(
-        "play",
-        function () {
-          if (audioPlayer.audioCtx.state === "suspended") {
-            audioPlayer.audioCtx.resume();
+      audioPlayer.ui.update = function (item, index) {
+          var val = +item.input.value;
+          if (audioPlayer.eq) {
+              audioPlayer.eq.set(index, val);
           }
-          initAudioPlayer();
-        },
-        false
-      );
+          updateEq();
+      comboxEqualizer.value = "Theatre";
+          item.label.textContent = val + " dB";
+      };
+      equalizer.appendChild(audioPlayer.ui.el);
+      function initAudioPlayer() {
+      if (audioPlayerInited) return;
+          updateEq();
+          // audioPlayer.connect(myAudio);
+          audioPlayer.connect(myVideo);
+          audioPlayerInited = true;
+      }
+
+      function updateEq() {
+          for (var i = 0; i < audioPlayer.ui.items.length; i++) {
+              var item = audioPlayer.ui.items[i];
+              if (audioPlayer.eq) {
+                  item.input.value = audioPlayer.eq.get(i) + "";
+                  item.label.textContent = item.input.value + " dB";
+              }
+          }
+      }
+      function update() {
+          requestAnimationFrame(update);
+      }
+      function init() {
+          myVideo.volume = 0.5;
+          myVideo.addEventListener("play", function () {
+              if (audioPlayer.audioCtx.state === "suspended") {
+                  audioPlayer.audioCtx.resume();
+              }
+              initAudioPlayer();
+          }, false);
 
       comboxEqualizer.addEventListener(
         "change",
         function () {
-          var val = comboxEqualizer.value;
+              var val = comboxEqualizer.value;
           if (audioPlayer.eq) audioPlayer.eq.use(val);
-          updateEq();
+              updateEq();
         },
         false
       );
@@ -309,14 +290,14 @@ define("main", [
       var event = new Event('change');
       comboxEqualizer.dispatchEvent(event);
 
-      update();
-    }
-    init();
+          update();
+      }
+      init();
   }
   if (!AudioContext) {
-    alert("your browser not support AudioContext.");
+      alert("your browser not support AudioContext.");
   } else {
-    run();
+      run();        
   }
 });
 requirejs(["main"]);
@@ -364,7 +345,7 @@ requirejs(["main"]);
 //         return EqualizerFilter;
 //     }());
 //     exports.EqualizerFilter = EqualizerFilter;
-
+  
 //     var Equalizer = /** @class */ (function () {
 //         function Equalizer() {
 //             this.presets = {
@@ -384,7 +365,7 @@ requirejs(["main"]);
 //             };
 //             // 100 200 400 600 1K 3K 6K 12K 14K 16K
 //             this.frequencys = [10, 20, 30, 40, 60, 120, 250, 500, 1000, 2000, 4000, 8000, 16000];
-//             this.eqFilter = new EqualizerFilter(this.frequencys);
+//             this.eqFilter = new EqualizerFilter(this.frequencys);            
 //         }
 //         Equalizer.prototype.init = function (ac) {
 //             this.eqFilter.init(ac);
@@ -490,7 +471,7 @@ requirejs(["main"]);
 //                 }
 //             }
 //         }
-
+      
 //         AudioPlayer.prototype.connect = function (media) {
 //             this.mediaSource = this.audioCtx.createMediaElementSource(media);
 //             if (this.eq) {
@@ -501,7 +482,7 @@ requirejs(["main"]);
 //             }
 //             this.analyser.connect(this.audioCtx.destination);
 //         };
-
+      
 //         return AudioPlayer;
 //     }());
 //     exports.AudioPlayer = AudioPlayer;
