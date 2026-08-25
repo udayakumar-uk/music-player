@@ -17,26 +17,24 @@
 </head>
 <body>
 
-
-
     <div class="video-box">
         <div class="mediaPlayer showControls" id="player">
             <div class="captions d-flex align-items-center">
                 <button class="btn player_button active" id="control"><img src="./img/controls.svg" class="material-symbols-rounded" alt="control"></button>
-                <span id="videoCaption" class="flex-grow-1 w-50 d-inline-block text-truncate align-middle"></span>                
-                <button class="btn player_button" id="toggleEq"><img src="./img/tune.svg" class="material-symbols-rounded"></button>
-                <button class="btn player_button" style="display: none;" id="toggleQueue"><img src="./img/queue.svg" class="material-symbols-rounded"></button>
+                <span id="videoCaption" class="flex-grow-1 d-inline-block text-truncate align-middle"></span>
                 <span id="songCounts"></span>
             </div>
 
-            <video class="player_video myVideo" id="myVideoPlayer" src="">Your browser does not support the video.</video>
-
+            <!-- https://youtu.be/zHykccvCMoU -->
+            <video class="player_video myVideo" id="myVideoPlayer" src="" crossorigin="anonymous">
+                Your browser does not support the video.
+            </video>
             <div class="myEqualizer col-12 col-md-10 col-lg-8 col-xl-6" style="display: none;">
                 <div class="form-group  d-flex align-items-center">
                     <label for="presets" class="m-0">Presets : </label>
                     <select id="combox-equalizer" class="form-control ml-3" style="width: 50%;height: 30px;background: var(--primary);border: 0;color: var(--white);">
                         <option value="Manual" selected="selected">Manual</option>
-                        <option value="Theatre">Theatre</option>
+                        <option value="UK" >Theatre</option>
                         <option value="Dolby" >Dolby</option>
                         <option value="Rock">Rock</option>
                         <option value="Live">Live</option>
@@ -48,9 +46,9 @@
                 <form autocomplete="off" id="equalizer"></form>
             </div>
 
-            <div id="mediaList" style="display: none;"></div>
+            <div id="mediaList" style="display: none;">test</div>
 
-            <div class="player_controls p-2">
+            <div class="player_controls py-2 px-3">
                 
                 <div class="progress progress-range" title="Jump-to">
                     <div class="progress-bar"></div>
@@ -60,11 +58,15 @@
                     <div class="left-controls">
                         <button class="btn player_button" id="speaker"><img src="./img/volume_up.svg" class="material-symbols-rounded"></button>
                         <input type="range" name="volume" id="volume_slider" min="0" max="1" step="0.05" value="0.5"></input>
+                        <button class="btn player_button ml-1 ml-md-3" id="toggleEq"><img src="./img/tune.svg" class="material-symbols-rounded"></button>
+                        <select class="track-select ml-1 ml-md-3" id="subtitleTrack" title="Subtitle track" aria-label="Subtitle track"></select>
+                        <select class="track-select ml-1" id="audioTrack" title="Audio track" aria-label="Audio track"></select>
+                        <button class="btn player_button ml-1 ml-md-3" style="display: none;" id="toggleQueue"><img src="./img/queue.svg" class="material-symbols-rounded"></button>
                     </div>
                     <div class="center-controls">
                         <button data-change="-1" class="songchange-btn prev-song player_button btn d-none" disabled><img src="./img/prev.svg" class="material-symbols-rounded"></button>
                         <button data-skip="-10" class="skip-btn player_button btn"><img src="./img/replay.svg" class="material-symbols-rounded"></button>
-                        <button class="btn player_button toggle" id="play-btn" title='Toggle Play'><img src="./img/play.svg" class="material-symbols-rounded"></button>
+                        <button class="btn player_button toggle mx-3" id="play-btn" title='Toggle Play'><img src="./img/play.svg" class="material-symbols-rounded"></button>
                         <button data-skip="10" class="skip-btn player_button btn"><img src="./img/forward.svg" class="material-symbols-rounded"> </button>
                         <button data-change="1" class="songchange-btn next-song player_button btn d-none"><img src="./img/next.svg" class="material-symbols-rounded"> </button>
                     </div>
@@ -73,7 +75,7 @@
                         <div class="player_equalizer">
                             <button type="file" id="fileUpload" class="btn player_button">
                                 <img src="./img/drive_folder.svg" class="material-symbols-rounded">
-                                <input type="file" id="myFileInput" multiple >
+                                <input type="file" id="myFileInput" accept="video/*,audio/*,.vtt,.srt" multiple >
                                 <!-- accept=".mp3, .mp4, .mkv, .ogg" -->
                             </button>
                         </div>
@@ -83,8 +85,6 @@
                         </div>
                     </div>
                 </div>
-
-                
 
             </div>
         </div>

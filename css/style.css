@@ -1,47 +1,49 @@
-body {
-	font-family: 'Josefin Sans', sans-serif;
+body{
+    font-family: 'Josefin Sans', sans-serif;
 	margin: 0;
 	padding: 0;
 	background-color: rgb(37 37 44);
 	font-size: 14px;
 }
 
-:root {
-  --primary: #404ebf;
+:root{
+    --primary : #404ebf;
 }
+
 
 .popbold{ font-weight: 700;}
 .popsemibold{ font-weight: 500;}
 .popreg{ font-weight: 400;}
 .popthin{ font-weight: 300;}
 
-img {
+img{ 
 	max-width: 100%; 
 	vertical-align: middle;
 }
-ul {
+ul{ 
 	list-style-type: none; 
 	margin: 0;
 	padding: 0;
 }
 
-.material-symbols-rounded {
-  vertical-align: middle;
-  line-height: normal;
-  font-size: 28px;
-  color: #fff;
+.material-symbols-rounded{
+    vertical-align: middle;
+    line-height: normal;
+    font-size: 28px;
+    color: #fff;
 	width: 30px;
-  filter: invert(1);
+    filter: invert(1);
 }
 
 .btn, .btn:focus, .btn.active, .btn:active{
     box-shadow: none !important ;
 }
 
-.gap-1 {
+
+.gap-1{
 	gap: 1rem;
 }
-.gap-05 {
+.gap-05{
 	gap: 0.5rem;
 }
 .uiscroll::-webkit-scrollbar {
@@ -52,24 +54,25 @@ ul {
 }
 .uiscroll::-webkit-scrollbar-thumb {
 	background: #b3b3b3; 
-  border-radius: 10px;
+	border-radius:10px;
 }
 .uiscroll::-webkit-scrollbar-thumb:hover {
 	background: #888; 
 } 
 
-.lineclamp {
+
+.lineclamp{
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.lineclamp1 {
+.lineclamp1{
 	-webkit-line-clamp: 1;
 }
-.lineclamp2 {
+.lineclamp2{
 	-webkit-line-clamp: 2;
 }
-.lineclamp3 {
+.lineclamp3{
 	-webkit-line-clamp: 3;
 }
